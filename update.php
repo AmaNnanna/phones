@@ -8,7 +8,11 @@ $id = $_GET['id'] ?? null;
 $statement = $pdo->prepare('SELECT * FROM porducts WHERE id = :id');
 $statement->bindValue(':id', $id);
 
-$statement = $pdo->prepare('UPDATE products (name, price, description) SET VALUES (:name, :price, :description');
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    $statement = $pdo->prepare('UPDATE products (name, price, description) SET VALUES (:name, :price, :description');
+    
+}
 
 ?>
 

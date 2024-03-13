@@ -7,10 +7,15 @@ $id = $_GET['id'] ?? null;
 
 $statement = $pdo->prepare('SELECT * FROM porducts WHERE id = :id');
 $statement->bindValue(':id', $id);
+$statement->execute();
+
+$name = $product['name'];
+$price = $product['price'];
+$description = $product['description'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    $statement = $pdo->prepare('UPDATE products (name, price, description) SET VALUES (:name, :price, :description');
+    $statement = $pdo->prepare('UPDATE products (name, price, description) SET VALUES (:name, :price, :description)');
 
 }
 
@@ -28,21 +33,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form action="" method="POST">
         <div class="mb-3">
             <label class="form-label">Phone Name</label>
-            <input type="text" name="name" class="form-control" value="<?php echo $title ?>">
+            <input type="text" name="name" class="form-control" value="<?php echo $name ?>">
         </div>
         <div class="mb-3">
             <label class="form-label">Phone Image</label>
-            <input type="file" name="image" class="form-control">
+            <input type="file" name="image" class="form-control" value="<?php echo $image ?>">
         </div>
         <div class="mb-3">
             <label class="form-label">Phone Price</label>
-            <input type="number" name="price" step=".01" class="form-control">
+            <input type="number" name="price" step=".01" class="form-control" value="<?php echo $price ?>">
         </div>
         <div class="mb-3">
             <label class="form-label">Phone Description</label>
-            <textarea name="description" class="form-control"></textarea>
+            <textarea name="description" class="form-control"><?php echo $description ?></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </body>
 </html>

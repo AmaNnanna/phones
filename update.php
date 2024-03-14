@@ -5,18 +5,31 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $id = $_GET['id'] ?? null;
 
-$statement = $pdo->prepare('SELECT * FROM porducts WHERE id = :id');
+$statement = $pdo->prepare('SELECT * FROM products WHERE id = :id');
 $statement->bindValue(':id', $id);
 $statement->execute();
+
+$product = $statement->fetch(PDO::FETCH_ASSOC);
 
 $name = $product['name'];
 $price = $product['price'];
 $description = $product['description'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    $statement = $pdo->prepare('UPDATE products (name, price, description) SET VALUES (:name, :price, :description)');
 
+    $name = $_POST['name'];
+    $price = $_POST['price'];
+    $description = $_POST['description'];
+    
+    $statement = $pdo->prepare('UPDATE products SET name = :name, price = :price, description = :description WHERE id = :id');
+    $statement->bindValue(':name', $name);
+    $statement->bindValue(':price', $price);
+    $statement->bindValue(':description', $description);
+    $statement->bindValue(':id', $id);
+
+    $statement->execute();
+
+    header('Location: index.php');
 }
 
 ?>

@@ -17,7 +17,7 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
+  <title>Phones Store Demo</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
@@ -44,7 +44,7 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
       <?php foreach ($products as $i => $product) : ?>
         <tr>
           <th scope="row"><?php echo $i + 1 ?></th>
-          <td><?php echo $product['name'] ?></td>
+          <td><a href="details.php"><?php echo $product['name'] ?></a></td>
           <td><img src="<?php echo $product['image'] ?>" alt="<?php echo $product['name'] . ' image' ?>"></td>
           <td><?php echo $product['price'] ?></td>
           <td><?php echo date('jS F, Y', strtotime($product['date'])) ?></td>

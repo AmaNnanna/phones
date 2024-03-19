@@ -24,6 +24,10 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
 <body>
   <h1>Available Phones</h1>
 
+  <p>
+    <a href="create.php" class="btn btn-primary btn-small">Add a Product</a>
+  </p>
+
   <table class="table">
     <thead>
       <tr>
@@ -41,14 +45,14 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
         <tr>
           <th scope="row"><?php echo $i + 1 ?></th>
           <td><?php echo $product['name'] ?></td>
-          <td><?php echo $product['image'] ?></td>
+          <td><img src="<?php echo $product['image'] ?>" alt="<?php echo $product['name'] . ' image' ?>"></td>
           <td><?php echo $product['price'] ?></td>
           <td><?php echo date('jS F, Y', strtotime($product['date'])) ?></td>
           <td>
             <a href="update.php?id=<?php echo $product['id'] ?>" type="btn" class="btn btn-small btn-outline-primary">Update Product</a>
             <form action="delete.php" method="POST" style="display: inline-block;">
               <input type="hidden" name="id" value="<?php echo $product['id'] ?>">
-              <button type="submit" class="btn btn-small btn-outline-danger">Delete prouct</button>
+              <button type="submit" class="btn btn-small btn-outline-danger">Delete product</button>
             </form>
           </td>
 

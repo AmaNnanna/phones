@@ -3,7 +3,14 @@
 $pdo = new PDO('mysql: host=localhost; port=3306; dbname=phones', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$statement = $pdo->prepare('SELECT * FROM products ORDER BY id ASC');
+$search = $_GET['search'] ?? null;
+
+if ($search) {
+  $statement = $pdo->prepare('SELECT * FROM products WHERE name LIKE :name ORDER BY id DESC');
+  $statement->bindValue(':name', "%$search%");
+} else {
+  $statement = $pdo->prepare('SELECT * FROM products ORDER BY id ASC');
+}
 
 $statement->execute();
 $products = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -27,6 +34,15 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
   <p>
     <a href="create.php" class="btn btn-primary btn-small">Add a Product</a>
   </p>
+
+  <form action="" method="GET">
+    <div class="input-group mb-3">
+      <input type="text" name="search" class="form-control" placeholder="search products" value="<?php echo $search ?>">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
 
   <table class="table">
     <thead>

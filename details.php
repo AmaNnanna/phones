@@ -5,6 +5,11 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $id = $_GET['id'] ?? null;
 
+if (!$id) {
+    header('Location: index.php');
+    exit;
+}
+
 $statement = $pdo->prepare('SELECT * FROM products WHERE id = :id');
 $statement->bindValue(':id', $id);
 $statement->execute();
@@ -13,7 +18,7 @@ $product = $statement->fetch(PDO::FETCH_ASSOC);
 
 $name = $product['name'];
 $price = $product['price'];
-$description = $product['price'];
+$description = $product['description'];
 
 ?>
 
@@ -34,7 +39,7 @@ $description = $product['price'];
         </div>
 
         <div>
-            <!-- <img src="<?php echo $product['image'] ?>" alt="<?php echo $product['name'] . ' image' ?>"> -->
+            <img src="<?php echo $product['image'] ?>" alt="<?php echo $product['name'] . ' image' ?>"> 
             <p><?php echo $name ?></p>
             <p><?php echo $price ?></p>
         </div>
